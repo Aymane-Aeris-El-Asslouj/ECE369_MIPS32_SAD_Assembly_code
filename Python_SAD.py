@@ -45,8 +45,7 @@ out_y = None
 current_sum = float("inf")
 new_sum = None
 
-while x <= min_scope_x and y <= min_scope_y and x >= max_scope_x and y >= max_scope_y:
-
+while True:
 
     new_sum = np.sum(np.abs(frame[y:y+w_y, x:x+w_x] - window))
 
@@ -57,21 +56,29 @@ while x <= min_scope_x and y <= min_scope_y and x >= max_scope_x and y >= max_sc
 
     if state == "right":
         x += 1
+        if x > max_scope_x:
+            break
         if x == max_scope_x:
             state ="down"
             min_scope_y += 1
     elif state == "down":
         y += 1
+        if y > max_scope_y:
+            break
         if y == max_scope_y:
             state ="left"
             max_scope_x -= 1
     elif state == "left":
         x -= 1
+        if x < min_scope_x:
+            break
         if x == min_scope_x:
             state ="up"
             max_scope_y -= 1
     else:
         y -= 1
+        if y < min_scope_y:
+            break
         if y == min_scope_y:
             state ="right"
             min_scope_x += 1
