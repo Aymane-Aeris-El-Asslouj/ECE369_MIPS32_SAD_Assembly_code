@@ -1,7 +1,9 @@
 #  Fall 2022
 #  Team Members:    
 #  % Effort    :   
-#
+#  Max William Rigler 33%
+#  Julie Grace Mason 33%
+#  Aeris El Asslouj 33%
 # ECE369A,  
 # 
 
