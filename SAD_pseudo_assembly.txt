@@ -1,0 +1,104 @@
+add frame_offset, $zero, $zero
+   add x, $zero, $zero
+   add y, $zero, $zero
+   lw i, 4(sizes)
+   sll i, i, 2
+   lui sum, 0x7fff
+   lw l, 12(sizes)
+   sll l, l, 2
+   lw dummy_4, 8(sizes)
+   lw max_scope_x, 4(sizes)
+   sub max_scope_x, i, l
+   lw max_scope_y, 0(sizes)
+   sub max_scope_y, max_scope_y, dummy_4
+   sll max_scope_y, max_scope_y 2
+   add max_window_pointer, window, l
+   add dummy_5, $zero, $zero
+   
+    comp_start:
+        beq, dummy_5, dummy_4, comp_end
+        add, max_window_pointer, max_window_pointer, l
+        addi dummy_5, dummy_5, 1
+        j comp_start
+    
+    comp_end:
+        add, frame_carriage_x, max_scope_x, $zero
+        add, frame_carriage_y, max_scope_y, $zero
+
+    la move_address, right_move
+
+    Call:
+        add, new_sum, $zero, $zero
+        add, window_pointer, window, $zero
+        add, frame_pointer, frame, frame_offset
+        add, dummy_2_pointer, window_pointer, l
+        next_row:
+            beq dummy_2_pointer, max_window_pointer, computation_end
+                row_start:
+                    beq window_pointer, dummy_2_pointer, row_end
+                    lw dummy_4, 0(window_pointer)
+                    lw dummy_5, 0(frame_pointer)
+                    sub dummy_5, dummy_4, dummy_5
+                    sra dummy_4, dummy_5, 31
+                    xor dummy_5, dummy_5, dummy_4
+                    sub dummy_5, dummy_5, dummy_4
+                    add new_sum, new_sum, dummy_5
+                    addi window_pointer, window_pointer, 4
+                    addi frame_pointer, frame_pointer, 4
+                j row_start
+                row_end:
+                    add frame_pointer, frame_pointer, frame_carriage_x
+                    add dummy_2_pointer, dummy_2_pointer, l
+            j next_row
+        computation_end:
+            bge new_sum, sum, not_min
+            add sum, new_sum, $zero
+            add out_x, x, $zero
+            add out_y, y, $zero
+            not_min:
+                jr move_address
+
+    right_move:
+        addi x, x, 4
+        addi frame_offset, frame_offset, 4
+        bgt x, max_scope_x, End
+        bne x, max_scope_x, dodge_1
+        la move_address, down_move
+        dodge_1:
+            j Call
+    
+    down_move:
+        addi y, y, 4
+        add frame_offset, frame_offset, i
+        bgt y, max_scope_y, End
+        bne y, max_scope_y, dodge_2
+        la move_address, left_move
+        dodge_2:
+            j Call
+    
+    left_move:
+        addi, x, x, -4
+        addi frame_offset, frame_offset, -4
+        sub dummy_4, frame_carriage_x, max_scope_x
+        blt x, dummy_4, End
+        bne x, dummy_4, dodge_3
+            la move_address, up_move
+            addi max_scope_y, max_scope_y, -4
+        dodge_3:
+            j Call;
+    
+    up_move:
+        addi y, y, -4
+        sub frame_offset, frame_offset, i;
+        sub dummy_5, frame_carriage_y, max_scope_y
+        blt y, dummy_5, End
+        bne y, dummy_5, dodge_4
+        la move_address, right_move
+        addi max_scope_x, max_scope_x, -4
+        dodge_4:
+            j Call;
+        
+    End:
+        srl out_x, out_x, 2
+        srl out_y, out_y, 2
+        jr $ra
