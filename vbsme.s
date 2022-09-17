@@ -787,7 +787,7 @@ vbsme:
    add $t4, $zero, $zero
    lw $t0, 4($a0)
    sll $t0, $t0, 2
-   lui $s0, 0x7fff
+   sll $s0, $t0, 23
    lw $t1, 12($a0)
    sll $t1, $t1, 2
    lw $s6, 8($a0)
@@ -796,18 +796,13 @@ vbsme:
    lw $t7, 0($a0)
    sub $t7, $t7, $s6
    sll $t7, $t7 2
-   add $s3, $a2, $t1
-   add $s7, $zero, $zero
-   
-    comp_start:
-        beq, $s7, $s6, comp_end
-        add, $s3, $s3, $t1
-        addi $s7, $s7, 1
-        j comp_start
-    
-    comp_end:
-        add, $s4, $t6, $zero
-        add, $t5, $t7, $zero
+
+   addi $s6, $s6, 1
+   mul $s6, $s6, $t1
+   add $s3, $a2, $s6
+
+    add, $s4, $t6, $zero
+    add, $t5, $t7, $zero
 
     la $t8, right_move
 
@@ -817,24 +812,23 @@ vbsme:
         add, $s2, $a1, $t2
         add, $s5, $s1, $t1
         next_row:
-            beq $s5, $s3, computation_end
                 row_start:
-                    beq $s1, $s5, row_end
                     lw $s6, 0($s1)
                     lw $s7, 0($s2)
                     sub $s7, $s6, $s7
-                    sra $s6, $s7, 31
-                    xor $s7, $s7, $s6
-                    sub $s7, $s7, $s6
-                    add $t9, $t9, $s7
-                    addi $s1, $s1, 4
-                    addi $s2, $s2, 4
-                j row_start
-                row_end:
+                    bgtz $s7, pos
+                    sub $t9, $t9, $s7
+                    j end_abs
+                    pos:
+                        add $t9, $t9, $s7
+                    end_abs:
+                        addi $s1, $s1, 4
+                        addi $s2, $s2, 4
+                bne $s1, $s5, row_start
                     add $s2, $s2, $s4
                     add $s5, $s5, $t1
-            j next_row
-        computation_end:
+            bne $s5, $s3, next_row
+
             bge $t9, $s0, not_min
             add $s0, $t9, $zero
             add $v1, $t3, $zero

@@ -6,32 +6,20 @@
 
 // data
 /*
-__int32 sizes [] = {16, 16, 4, 8};
+__int32 sizes [] = {4, 4, 4, 4};
 
-__int32 frame []  = { 7, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
-                    7, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
-                    7, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
-                    7, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
-                    0, 4, 2, 3, 4, 5, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 
-                    0, 5, 3, 4, 5, 6, 30, 35, 40, 45, 0, 0, 0, 0, 70,  75, 
-                    0, 6, 12, 18, 24, 30, 36, 42, 48, 54, 0, 0, 0, 0, 84, 90, 
-                    0, 4, 8, 8, 8, 8, 42, 49, 56, 63, 0, 0, 0, 0, 98, 105, 
-                    0, 1, 8, 8, 8, 8, 48, 56, 64, 72, 0, 0, 0, 0, 112, 120, 
-                    0, 1, 8, 8, 8, 8, 54, 63, 72, 81, 90, 99, 108, 117, 126, 135, 
-                    0, 10, 8, 8, 8, 8, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 
-                    0, 11, 22, 33, 44, 55, 66, 77, 88, 99, 110, 121, 132, 143, 154, 165, 
-                    9, 9, 9, 9, 48, 60, 72, 84, 96, 108, 120, 132, 0, 1, 2, 3, 
-                    9, 9, 9, 9, 52, 65, 78, 91, 104, 114, 130, 143, 1, 2, 3, 4, 
-                    9, 9, 9, 9, 56, 70, 84, 98, 112, 126, 140, 154, 2, 3, 4, 5, 
-                    9, 9, 9, 9, 60, 75, 90, 105, 120, 135, 150, 165, 3, 4, 5, 6 
-                    };
+__int32 frame []  = {7, 5, 8, 8,
+           7, 5, 8, 8,
+           7, 5, 8, 8, 
+           7, 5, 8, 8 
+};
 
-__int32 window [] = {0, 0, 0, 0, 0, 0, 0, 0, 
-                    0, 0, 0, 0, 0, 0, 0, 0, 
-                    0, 0, 0, 0, 0, 0, 0, 0, 
-                    0, 0, 0, 0, 0, 0, 0, 0
-                    };
+__int32 window [] = {0, 0, 0, 0,
+            0, 0, 0, 0, 
+            0, 0, 0, 0, 
+            0, 0, 0, 0};
 */
+
 
 /**/
 __int32 sizes [] = {16, 16, 4, 4};
@@ -61,34 +49,16 @@ __int32 window [] = {0, 1, 2, 3,
 /**/
 
 /*
-__int32 sizes [] = {16, 16, 8, 4};
+__int32 sizes [] = {5,  6,  2, 2};
 
-__int32 frame []  = {7, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-            7, 8, 8, 8, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
-            7, 8, 8, 8, 2, 8, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 
-            7, 8, 8, 8, 8, 8, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 
-            0, 4, 8, 8, 8, 8, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 
-            0, 5, 8, 8, 8, 8, 30, 35, 40, 45, 50, 55, 60, 65, 70,  75, 
-            0, 6, 8, 8, 8, 8, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 
-            0, 4, 8, 8, 8, 8, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105, 
-            0, 1, 8, 8, 8, 8, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 
-            0, 1, 8, 8, 8, 8, 54, 63, 72, 81, 90, 99, 108, 117, 126, 135, 
-            0, 10, 8, 8, 8, 8, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 
-            0, 11, 22, 33, 44, 55, 66, 77, 88, 99, 110, 121, 132, 143, 154, 165, 
-            9, 9, 9, 9, 48, 60, 72, 84, 96, 108, 120, 132, 0, 1, 2, 3, 
-            9, 9, 9, 9, 52, 65, 78, 91, 104, 114, 130, 143, 1, 2, 3, 4, 
-            9, 9, 9, 9, 56, 70, 84, 98, 112, 126, 140, 154, 2, 3, 4, 5, 
-            9, 9, 9, 9, 60, 75, 90, 105, 120, 135, 150, 165, 3, 4, 5, 6 };
+__int32 frame []  = {0,  0,  0,  0, 0, 0 ,
+         0,  0,  0,  0, 0, 0,
+         0,  1,  2,  0, 0, 0,
+         0,  3,  4,  0, 0, 0,
+         0,  0,  0,  0, 0, 0};
 
-__int32 window [] = {8, 8, 8, 8, 
-         8, 8, 8, 8, 
-         8, 8, 8, 8, 
-         8, 8, 8, 8, 
-         8, 8, 8, 8, 
-         8, 8, 8, 8, 
-         8, 8, 8, 8,  
-         8, 8, 8, 8, 
-                    };
+__int32 window [] = {1,  2, 
+         3,  4}; 
 */
 
 
@@ -140,7 +110,7 @@ void print_pos(){
         }
         printf("\n");
     }
-    printf("%d, %d, %d; %d", out_x, out_y, new_sum, sum);
+    printf("%d, %d, %d; %d", out_x/4, out_y/4, new_sum, sum);
     printf("\n");
     fflush(stdout);
 }
@@ -156,7 +126,7 @@ int main(){
     i = sizes[1];
     i = i << 2;
 
-    sum = 2147418112; # lui 0x7fff
+    sum = i << 23;
 
     l = sizes[3];
     l = l << 2;
@@ -170,20 +140,14 @@ int main(){
 
 
     // (pointer in C requires /4)
-    max_window_pointer = window + (l/4);
-    dummy_5 = 0;
-    comp_start:
-        if(dummy_5 == dummy_4) goto comp_end;
-        max_window_pointer = max_window_pointer + (l/4);
-        dummy_5 = dummy_5 + 1;
-        goto comp_start;
+    dummy_4 = dummy_4 + 1;
+    dummy_4 = dummy_4 * (l/4);
+    max_window_pointer = window + dummy_4;
+    // gets frame pointer from end of first row of window to start of second row
+    frame_carriage_x = max_scope_x;
+    frame_carriage_y = max_scope_y;
 
-    comp_end:
-        // gets frame pointer from end of first row of window to start of second row
-        frame_carriage_x = max_scope_x;
-        frame_carriage_y = max_scope_y;
-
-        move_address = &&right_move;
+    move_address = &&right_move;
 
         
     Call:
@@ -199,43 +163,38 @@ int main(){
         // run over all rows
         dummy_2_pointer = window_pointer + (l/4);
         next_row:
-            if(dummy_2_pointer == max_window_pointer) goto computation_end;
+            row_start:
+                // compute one row of sum of absolute differences
 
-                row_start:
-                    // compute one row of sum of absolute differences
-                    if(window_pointer == dummy_2_pointer) goto row_end;
+                // fetch pixel values of window and frame
+                dummy_4 = *window_pointer;
+                dummy_5 = *frame_pointer;
+                
+                // take the difference between the two
+                dummy_5 = dummy_4 - dummy_5;
 
-                    // fetch pixel values of window and frame
-                    dummy_4 = *window_pointer;
-                    dummy_5 = *frame_pointer;
-                    
-                    // take the difference between the two
-                    dummy_5 = dummy_4 - dummy_5;
-
-                    // compute absolute value of difference (dummy 5)
-                    dummy_4 = dummy_5 >> 31;
-                    dummy_5 = dummy_5 ^ dummy_4;
-                    dummy_5 = dummy_5 - dummy_4;
-
-                    // add absolute difference to cummulative sum
+                // compute absolute value of difference (dummy 5)
+                if(dummy_5 > 0) goto pos;
+                new_sum = new_sum - dummy_5;
+                goto end_abs;
+                pos:
                     new_sum = new_sum + dummy_5;
-
+                end_abs:
                     // (pointer operation in C requires /4)
                     window_pointer = window_pointer + (4/4);
                     frame_pointer = frame_pointer + (4/4);
 
-                goto row_start;
-                
-                row_end:
+                if(window_pointer != dummy_2_pointer) goto row_start;
+            
 
-                    // shift the frame offset (pointer operation in C requires /4)
-                    frame_pointer = frame_pointer + (frame_carriage_x/4);
+                // shift the frame offset (pointer operation in C requires /4)
+                frame_pointer = frame_pointer + (frame_carriage_x/4);
 
-                    // (pointer operation in C requires /4)
-                    dummy_2_pointer = dummy_2_pointer + (l/4);
-            goto next_row;
+                // (pointer operation in C requires /4)
+                dummy_2_pointer = dummy_2_pointer + (l/4);
 
-        computation_end:
+            if(dummy_2_pointer != max_window_pointer) goto next_row;
+
             // checl if this is a lower sum of absolute differences
             // than the previous value, and if it is, update output
             if(new_sum >= sum) goto not_min;
@@ -289,6 +248,9 @@ up_move:
         goto Call;
     
 End:
+    // (!!! debug only !!!)
+    print_pos();
+
     out_x = out_x >> 2;
     out_y = out_y >> 2;
 
@@ -299,4 +261,5 @@ End:
 
 
 }
+
 

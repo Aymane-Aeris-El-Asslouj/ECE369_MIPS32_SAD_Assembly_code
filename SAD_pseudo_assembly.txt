@@ -3,7 +3,7 @@ add frame_offset, $zero, $zero
    add y, $zero, $zero
    lw i, 4(sizes)
    sll i, i, 2
-   lui sum, 0x7fff
+   sll sum, i, 23
    lw l, 12(sizes)
    sll l, l, 2
    lw dummy_4, 8(sizes)
@@ -12,20 +12,15 @@ add frame_offset, $zero, $zero
    lw max_scope_y, 0(sizes)
    sub max_scope_y, max_scope_y, dummy_4
    sll max_scope_y, max_scope_y 2
-   add max_window_pointer, window, l
-   add dummy_5, $zero, $zero
-   
-    comp_start:
-        beq, dummy_5, dummy_4, comp_end
-        add, max_window_pointer, max_window_pointer, l
-        addi dummy_5, dummy_5, 1
-        j comp_start
-    
-    comp_end:
-        add, frame_carriage_x, max_scope_x, $zero
-        add, frame_carriage_y, max_scope_y, $zero
 
-    la move_address, right_move
+   addi dummy_4, dummy_4, 1
+   mul dummy_4, dummy_4, l
+   add max_window_pointer, window, dummy_4
+
+   add, frame_carriage_x, max_scope_x, $zero
+   add, frame_carriage_y, max_scope_y, $zero
+
+   la move_address, right_move
 
     Call:
         add, new_sum, $zero, $zero
@@ -33,24 +28,25 @@ add frame_offset, $zero, $zero
         add, frame_pointer, frame, frame_offset
         add, dummy_2_pointer, window_pointer, l
         next_row:
-            beq dummy_2_pointer, max_window_pointer, computation_end
+
                 row_start:
-                    beq window_pointer, dummy_2_pointer, row_end
                     lw dummy_4, 0(window_pointer)
                     lw dummy_5, 0(frame_pointer)
                     sub dummy_5, dummy_4, dummy_5
-                    sra dummy_4, dummy_5, 31
-                    xor dummy_5, dummy_5, dummy_4
-                    sub dummy_5, dummy_5, dummy_4
-                    add new_sum, new_sum, dummy_5
-                    addi window_pointer, window_pointer, 4
-                    addi frame_pointer, frame_pointer, 4
-                j row_start
-                row_end:
+                    bgtz dummy_5, pos
+                    sub new_sum, new_sum, dummy_5
+                    j end_abs
+                    pos:
+                        add new_sum, new_sum, dummy_5
+                    end_abs:
+                        addi window_pointer, window_pointer, 4
+                        addi frame_pointer, frame_pointer, 4
+                    bne window_pointer, dummy_2_pointer, row_start
+                
                     add frame_pointer, frame_pointer, frame_carriage_x
                     add dummy_2_pointer, dummy_2_pointer, l
-            j next_row
-        computation_end:
+            bne dummy_2_pointer, max_window_pointer, next_row
+        
             bge new_sum, sum, not_min
             add sum, new_sum, $zero
             add out_x, x, $zero
